@@ -28,7 +28,7 @@ Automatic cleanup removes completed fork activity with the pi-fleet journal. Com
 
 Fast and balanced forks have less reasoning capability than the coordinating reader. Deep forks have more reasoning capability and use expensive compute. Capability changes the cognitive work assigned to a fork and the weight given to its evidence. It does not change scope, permissions, authority, or ownership. The coordinating reader interprets every report against the active goal and makes the decision.
 
-Use the lowest effort that can reliably complete the task. Use deep only when its added reasoning capability is necessary for the outcome. Do not use deep for routine evidence gathering, settled execution, duplicate agreement, or work that balanced can complete reliably. A strong deep report remains decision input, not a decision made on the reader's behalf.
+Use the lowest effort that can reliably complete the task. When `effort` is omitted from `create_fork`, the extension uses TypeSafe Jev to suggest `fast`, `balanced`, or `deep` from the task description, then falls back to `balanced` if Jev is unavailable or uncertain. An explicitly supplied effort always wins. Jev uses the `pi-bifrost/jev-api-key` Windows Credential Manager entry. Use deep only when its added reasoning capability is necessary for the outcome. Do not use deep for routine evidence gathering, settled execution, duplicate agreement, or work that balanced can complete reliably. A strong deep report remains decision input, not a decision made on the reader's behalf.
 
 ## Configuration
 

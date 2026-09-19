@@ -1,6 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { loadConfiguration, TIERS, type Tier } from "./configuration.js";
 import { Controller } from "./forks/controller.js";
+import { suggestEffort } from "./jev-effort.js";
 import type { ActivityCollection, ActivityEntry } from "./forks/agent.js";
 import { RESULT_TYPE } from "./forks/ledger.js";
 import { assertForkToolsAvailable, FORK_CHILD_ERROR, isForkChildSession } from "./forks/session.js";
@@ -123,7 +124,12 @@ export default function register(pi: any): void {
     renderCall: renderCreateForkCall,
     renderResult: renderCreateForkResult,
     async execute(toolCallId: string, params: { name: string; task: string; description: string; effort?: Tier }, signal: AbortSignal, _onUpdate: any, ctx: any) {
-      const forkId = await getController(ctx).create(ctx, toolCallId, params.name, params.task, params.description, params.effort ?? "balanced", signal);
+      let tier = params.effort;
+      if (!tier) {
+        const suggestion = await suggestEffort(params.task).catch(() => undefined);
+        tier = suggestion?.tier ?? "balanced";
+      }
+      const forkId = await getController(ctx).create(ctx, toolCallId, params.name, params.task, params.description, tier, signal);
       return { content: [{ type: "text", text: forkId }], details: { forkId } };
     },
   });
