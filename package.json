@@ -38,6 +38,9 @@
     "@earendil-works/pi-tui": ">=0.85.0",
     "@sinclair/typebox": ">=0.34.0"
   },
+  "engines": {
+    "node": ">=22.19.0"
+  },
   "allowScripts": {
     "zeromq@6.6.0": true
   }
